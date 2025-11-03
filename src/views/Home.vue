@@ -789,7 +789,7 @@ export default {
             }
           ]        
         },
-        'ОЦЕНка ГОДА': {
+        'ОЦЕНКА ГОДА': {
           title: 'ОЦЕНКА ГОДА',
           description: 'На какую оценку вы бы оценили этот год?',
           nominees: [
@@ -904,12 +904,10 @@ export default {
     
     // Затем инициализируем приложение
     this.initTelegramWebApp();
-    this.initActivityTracking();
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   },
   beforeUnmount() {
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    this.cleanupActivityTracking();
   },
   methods: {
     // Метод для предзагрузки всех изображений
