@@ -349,7 +349,6 @@ export default {
       isRevote: false,
       isAdmin: false,
       isDownloading: false,
-      activityInterval: null,
       smallBoxes: [
         { title: 'ПАРА ГОДА' }, { title: 'ШИП ГОДА' }, { title: 'ЕБЛАН-МЕМ ГОДА' },
         { title: 'БАН ГОДА' }, { title: 'ПРОЕКТ ГОДА' }, { title: 'АЛКАШ ГОДА' },
@@ -790,7 +789,7 @@ export default {
           ]        
         },
         'ОЦЕНКА ГОДА': {
-          title: 'ОЦЕНКА ГОДА',
+          title: 'ОЦЕНка ГОДА',
           description: 'На какую оценку вы бы оценили этот год?',
           nominees: [
             { 
@@ -904,10 +903,6 @@ export default {
     
     // Затем инициализируем приложение
     this.initTelegramWebApp();
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  },
-  beforeUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   },
   methods: {
     // Метод для предзагрузки всех изображений
@@ -970,67 +965,6 @@ export default {
       return {
         background: 'rgb(255, 253, 253)'
       };
-    },
-
-    handleBeforeUnload(event) {
-      this.cleanupActivityTracking();
-      event.preventDefault();
-      event.returnValue = '';
-    },
-    
-    // Упрощенная система активности
-    async reportActivity() {
-      if (!this.userData) return;
-      
-      try {
-        await fetch('https://eblannaawardssssss.ru/activity', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            telegram_id: this.userData.id,
-            username: this.userData.username || `${this.userData.first_name}${this.userData.last_name ? ' ' + this.userData.last_name : ''}`,
-            first_name: this.userData.first_name || '',
-            last_name: this.userData.last_name || '',
-          })
-        });
-      } catch (error) {
-        console.error('Ошибка при отправке активности:', error);
-      }
-    },
-    
-    // Инициализация отслеживания активности
-    initActivityTracking() {
-      // Отправляем активность при загрузке
-      this.reportActivity();
-      
-      // Отправляем активность при взаимодействии с приложением
-      const activityEvents = ['click', 'touchstart', 'keydown', 'scroll'];
-      activityEvents.forEach(event => {
-        document.addEventListener(event, this.reportActivity, { passive: true });
-      });
-      
-      // Периодическая отправка активности (только если пользователь активен)
-      this.activityInterval = setInterval(() => {
-        if (document.hasFocus()) { // Только если вкладка активна
-          this.reportActivity();
-        }
-      }, 60000); // Раз в минуту вместо каждых 30 секунд
-    },
-    
-    // Очистка отслеживания активности
-    cleanupActivityTracking() {
-      if (this.activityInterval) {
-        clearInterval(this.activityInterval);
-        this.activityInterval = null;
-      }
-      
-      // Удаляем обработчики событий
-      const activityEvents = ['click', 'touchstart', 'keydown', 'scroll'];
-      activityEvents.forEach(event => {
-        document.removeEventListener(event, this.reportActivity);
-      });
     },
 
     initTelegramWebApp() {
