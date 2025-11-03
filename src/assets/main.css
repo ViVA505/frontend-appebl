@@ -1,0 +1,153 @@
+/* GigaSans Thin */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansThin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans ExtraLight */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansExtraLightItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans Light */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansLightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans Regular */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GigaSans Medium */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansMediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans SemBold */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansSemBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansSemBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans Bold */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansBoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans ExtraBold */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansExtraBoldItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans Black */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansBlack.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansBlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* GigaSans Static - предположим, что это Regular (400) */
+@font-face {
+  font-family: 'GigaSans';
+  src: url('./fonts/LocomotypeGigaSansStatic.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
