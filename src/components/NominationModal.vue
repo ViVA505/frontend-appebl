@@ -225,30 +225,50 @@ export default {
       this.isLoading = true
       
       try {
-        // Определяем endpoint в зависимости от того, есть ли уже голос
-        const endpoint = this.currentUserVote ? '/revote' : '/vote'
+        // Определяем тип голосования
+        const isCustom = this.currentNominee.name.includes('СВОЙ ВАРИАНТ')
+        const isRevote = this.currentUserVote
+        
+        let endpoint
+        if (isCustom) {
+          endpoint = isRevote ? '/revote-custom' : '/vote-custom'
+        } else {
+          endpoint = isRevote ? '/revote' : '/vote'
+        }
         
         // Генерируем уникальный ID запроса
-        const requestId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+        const requestId = Math.random().toString(36).substring(2) + Date.now().toString(36)
+        
+        const voteData = {
+          username: this.userData.username || 
+                   `${this.userData.first_name}${this.userData.last_name ? ' ' + this.userData.last_name : ''}`,
+          telegram_id: this.userData.id,
+          nomination: this.nomination.title,
+          request_id: requestId
+        }
+        
+        if (isCustom) {
+          // Извлекаем имя номинанта из скобок "СВОЙ ВАРИАНТ(имя)"
+          const customNominee = this.currentNominee.name.replace('СВОЙ ВАРИАНТ(', '').replace(')', '')
+          voteData.custom_nominee = customNominee
+        } else {
+          voteData.nominee = this.currentNominee.name
+          voteData.is_custom = false
+        }
+        
+        console.log('Отправка голоса:', voteData)
         
         const response = await fetch(`https://eblannaawardssssss.ru${endpoint}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            username: this.userData.username || 
-                     `${this.userData.first_name}${this.userData.last_name ? ' ' + this.userData.last_name : ''}`,
-            telegram_id: this.userData.id,
-            nomination: this.nomination.title,
-            nominee: this.currentNominee.name,
-            is_custom: false,
-            request_id: requestId
-          })
+          body: JSON.stringify(voteData)
         })
         
         if (!response.ok) {
-          throw new Error('Ошибка сети')
+          const errorText = await response.text()
+          throw new Error(`Ошибка сети: ${response.status} - ${errorText}`)
         }
         
         const data = await response.json()
@@ -258,8 +278,8 @@ export default {
         this.$emit('selected', this.currentNominee)
         
       } catch (error) {
-        console.error('Ошибка:', error)
-        alert('Произошла ошибка при голосовании')
+        console.error('Ошибка при голосовании:', error)
+        alert('Произошла ошибка при голосовании: ' + error.message)
       } finally {
         this.isLoading = false
       }

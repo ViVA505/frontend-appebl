@@ -194,6 +194,15 @@ export default {
         // Генерируем уникальный ID запроса
         const requestId = Math.random().toString(36).substring(2) + Date.now().toString(36);
         
+        console.log('Отправка кастомного голоса:', {
+          username: this.userData.username || 
+                   `${this.userData.first_name}${this.userData.last_name ? ' ' + this.userData.last_name : ''}`,
+          telegram_id: this.userData.id,
+          nomination: this.nominationTitle,
+          custom_nominee: this.selectedNominee,
+          request_id: requestId
+        });
+        
         const response = await fetch(`https://eblannaawardssssss.ru${endpoint}`, {
           method: 'POST',
           headers: {
@@ -210,20 +219,21 @@ export default {
         });
         
         if (!response.ok) {
-          throw new Error('Ошибка сети');
+          const errorText = await response.text();
+          throw new Error(`Ошибка сети: ${response.status} - ${errorText}`);
         }
         
         const data = await response.json();
-        console.log('Голос сохранен:', data);
+        console.log('Кастомный голос сохранен:', data);
         
         // Передаем выбранного номинанта в формате, который ожидает родительский компонент
         this.$emit('selected', { 
           name: `СВОЙ ВАРИАНТ(${this.selectedNominee})` 
         });
-        this.closeModal();
+        
       } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Произошла ошибка при голосовании');
+        console.error('Ошибка при кастомном голосовании:', error);
+        alert('Произошла ошибка при голосовании: ' + error.message);
       } finally {
         this.isLoading = false;
       }

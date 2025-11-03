@@ -789,7 +789,7 @@ export default {
             }
           ]        
         },
-        'ОЦЕНКА ГОДА': {
+        'ОЦЕНка ГОДА': {
           title: 'ОЦЕНКА ГОДА',
           description: 'На какую оценку вы бы оценили этот год?',
           nominees: [
@@ -1222,45 +1222,10 @@ export default {
       this.isVoting = true;
       
       try {
-        const isRevote = this.hasUserVoted(this.selectedNomination.title);
-        this.isRevote = isRevote;
+        // Определяем, является ли это переголосованием
+        this.isRevote = this.hasUserVoted(this.selectedNomination.title);
         
-        const endpoint = isRevote ? 
-          (nominee.name.includes('СВОЙ ВАРФИАНТ') ? '/revote-custom' : '/revote') :
-          (nominee.name.includes('СВОЙ ВАРИАНТ') ? '/vote-custom' : '/vote');
-        
-        const voteData = {
-          username: this.userData.username || 
-                   `${this.userData.first_name}${this.userData.last_name ? ' ' + this.userData.last_name : ''}`,
-          telegram_id: this.userData.id,
-          nomination: this.selectedNomination.title,
-          request_id: Math.random().toString(36).substring(2) + Date.now().toString(36)
-        };
-        
-        if (nominee.name.includes('СВОЙ ВАРИАНТ')) {
-          voteData.custom_nominee = nominee.name.replace('СВОЙ ВАРИАНТ(', '').replace(')', '');
-        } else {
-          voteData.nominee = nominee.name;
-          voteData.is_custom = false;
-        }
-        
-        console.log('Отправка голоса:', voteData);
-        
-        const response = await fetch(`https://eblannaawardssssss.ru${endpoint}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(voteData)
-        });
-        
-        if (!response.ok) {
-          throw new Error('Ошибка сети');
-        }
-        
-        const data = await response.json();
-        console.log('Ответ сервера:', data);
-        
+        // Обновляем локальное состояние пользовательских голосов
         const newValue = nominee.name;
         
         this.userVotes = {
@@ -1268,6 +1233,7 @@ export default {
           [this.selectedNomination.title]: newValue
         };
         
+        // Закрываем модальное окно номинации и показываем благодарность
         this.showModal = false;
         this.selectedNomineeName = nominee.name;
         this.showThankYouModal = true;
