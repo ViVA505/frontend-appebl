@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Welcome from '@/views/Welcome.vue';
+import What from '@/views/What.vue';
+import Home from '@/views/Home.vue';
 
 const routes = [
   { path: '/', component: Welcome },
-  { path: '/what', component: () => import('@/views/What.vue') }, // Заглушка для следующей страницы
-  { path: '/home', component: () => import('@/views/Home.vue') } // Заглушка для следующей страницы
+  { path: '/what', component: What}, // Заглушка для следующей страницы
+  { path: '/home', component: Home} // Заглушка для следующей страницы
 ];
 
 const router = createRouter({
