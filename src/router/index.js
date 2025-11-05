@@ -6,7 +6,8 @@ import Home from '@/views/Home.vue';
 const routes = [
   { path: '/', component: Welcome },
   { path: '/what', component: What}, // Заглушка для следующей страницы
-  { path: '/home', component: Home} // Заглушка для следующей страницы
+  { path: '/home', component: Home}, // Заглушка для следующей страницы
+
 ];
 
 const router = createRouter({
